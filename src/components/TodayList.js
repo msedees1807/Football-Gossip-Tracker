@@ -11,7 +11,11 @@ export default function TodayList() {
         <li>Salah to madrid</li>
         <li>Salah to madrid</li>
       </ul>
-      <Button variant="contained" startIcon={<RefreshIcon />}>
+      <Button
+        style={{ textTransform: "none" }}
+        variant="contained"
+        startIcon={<RefreshIcon />}
+      >
         Refresh
       </Button>
     </div>

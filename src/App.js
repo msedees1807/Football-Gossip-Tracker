@@ -2,6 +2,8 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import TodayList from "./components/TodayList";
 import NewsLocations from "./components/NewsLocations";
+import Select from "@material-ui/core/Select";
+import { MenuItem, FormControl, InputLabel } from "@material-ui/core";
 
 function App() {
   const [countries, setCountries] = useState(["UK", "USA", "SPAIN", "ITALY"]);
@@ -9,17 +11,16 @@ function App() {
   // This runs once when the code loads, and then not gain until the trigger is fired
   useEffect(() => {
     const getCountriesData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
+      fetch("https://disease.sh/v3/covid-19/countries")
         .then((res) => res.json())
         .then((data) => {
-          const countries = data.map((country) => {
-            name: country.country;
-            value: country.countryInfo.iso2;
-          });
+          const countries = data.map((country) => ({
+            name: country.country,
+            value: country.countryInfo.iso2,
+          }));
           setCountries(countries);
         });
     };
-
     getCountriesData();
   }, [countries]);
 
@@ -28,9 +29,14 @@ function App() {
       <div className="app__header">
         <h1>Football Gossip Tracker</h1>
 
-        {countries.map((x) => {
-          <p>{x}</p>;
-        })}
+        <FormControl>
+          <InputLabel>Select country</InputLabel>
+          <Select>
+            {countries.map((x) => (
+              <MenuItem>{x.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
 
       <div className="app__todays_news">
