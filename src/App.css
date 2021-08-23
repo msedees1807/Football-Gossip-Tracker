@@ -10,7 +10,6 @@ body {
 .App {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
 }
 
 @media (max-width: 990px) {
@@ -30,22 +29,4 @@ body {
   display: flex;
   justify-content: space-between;
   text-align: center;
-}
-
-.app__left {
-  flex: 0.9;
-}
-
-.app__right {
-  margin: 20px;
-}
-
-.locations__map {
-  height: 400px;
-  width: 500px;
-  background-color: rgb(226, 226, 226);
-  border: 1px solid lightgrey;
-  border-radius: 16px;
-  margin-top: 10px;
-  padding: 50px;
 }

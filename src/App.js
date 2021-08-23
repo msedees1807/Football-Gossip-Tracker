@@ -1,9 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import TodayList from "./components/TodayList";
-import NewsLocations from "./components/NewsLocations";
 import InfoBox from "./components/InfoBox";
-import Map from "./components/Map";
 import {
   MenuItem,
   FormControl,
@@ -15,27 +13,19 @@ import {
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("");
-  const [countryInfo, setCountryInfo] = useState("");
+  const [country, setCountry] = useState("worldwide");
+  const [countryInfo, setCountryInfo] = useState();
 
   const onCountryChange = async (e) => {
-    setCountry(e.target.value);
-
     const countryCode = e.target.value;
+    setCountry(countryCode);
 
     const url =
       countryCode === "worldwide"
         ? "https://disease.sh/v3/covid-19/all"
         : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
 
-    await fetch(url)
-      .then((res) => res.json)
-      .then((data) => {
-        setCountry(countryCode);
-        setCountryInfo(data);
-      });
-
-    console.log("HERERERERER", countryInfo);
+    await fetch(url).then();
   };
 
   // This runs once when the code loads, and then not gain until the trigger is fired
@@ -56,9 +46,9 @@ function App() {
 
   return (
     <div className="App">
-      <div className="app__left">
+      <div>
+        <h1> Transfer Tracker</h1>
         <div className="app__header">
-          <h1> COVID Tracker</h1>
           Chosen: {country}
           <div>
             <FormControl style={{ width: "200px", margin: "20px" }}>
@@ -75,15 +65,9 @@ function App() {
         </div>
 
         <div className="app__stats">
-          <InfoBox title="COVID cases" total={2000} cases={129} />
-          <InfoBox title="COVID cases" total={2000} cases={129} />
-          <InfoBox title="COVID cases" total={2000} cases={129} />
-        </div>
-
-        <div className="app__news_locations">
-          <h2>Locations</h2>
-          <Map />
-          <NewsLocations />
+          <InfoBox title="Overall" total={"Average"} cases={"26%"} />
+          <InfoBox title="Lowest" total={"Metro"} cases={"12%"} />
+          <InfoBox title="Highest" total={"Telegraph"} cases={"46%"} />
         </div>
 
         <br />
